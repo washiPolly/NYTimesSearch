@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <!--First Container-->
+  <div class="container">
+    <!-- jumbotron of the header-->
+    <div class="jumbotron col-sm-10 col-md-offset-1">
+      <h1><i class="fa fa-newspaper-o" aria-hidden="true"></i> New York Times Search</h1>
+    </div>
+    <form class="mx-auto" style="width: 800px;">
+      <div class="form-group">
+        <label for="searchBox" id = 'searchTerm'>Search Term</label>
+        <input type="text" class="form-control" id="searchBox" aria-describedby="searchHelp">
+      </div>
+      <div class="form-group">
+        <label for="records" id='searchRecords'>Number of Records to Recieve</label>
+        <input type="number" max="20" min="5" class="form-control" id="records">
+      </div>
+      <div class="form-group">
+        <label for="startYear" id='startYear'>Start Year (Optional)</label>
+        <input type="text" class="form-control" id="startYear">
+      </div>
+      <div class="form-group">
+        <label for="endYear" id = 'endYear' >End Year (Optional)</label>
+        <input type="text" class="form-control" id="endYear">
+      </div>
+      <button type="search" class="btn btn-primary" id='searchBtn'>Search</button>
+      <button type="clear" class="btn btn-primary" id='clearBtn'>Clear Search</button>
+    </form>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+// var topic = election
+// document.querySelector("#topicBtn").value;
+
+
+function articleSearch() {
+    var searchTerm = document.querySelector("#searchTerm");
+    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q="+ searchTerm + "&api-key=dAk882PlVGfyaVQyLcjpqHqJ8Biu105R"; //limit is set here
+
+  
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      .then(function(HTTPResponse) {
+          
+          console.log( HTTPResponse.response.docs[0].headline.main)
+
+
+          console.log(HTTPResponse)
+
+          var results = HTTPResponse.response.docs
+
+          for( var i = 0; i < 5; i++){
+              console.log(results[i].headline.main)
+
+          var articleSection = $("<div>");
+              articleSection.addClass("article");
+              $("#articleSection").append(articleSection);
+
+
+
+          }
+        });
+      }
+          $("#searchBtn").on("click", function(){
+
+          });
+
+        
+
+ </script>
+
+</body>
+
+</html>
